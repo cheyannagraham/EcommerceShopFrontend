@@ -1,0 +1,21 @@
+<!-- MENU SIDEBAR-->
+<aside class="menu-sidebar d-none d-lg-block">
+  <div class="logo">
+    <a routerLink="/products" routerLinkActive="activebutton" ariaCurrentWhenActive="page">
+      Chey's Shop
+    </a>
+  </div>
+  <div class="menu-sidebar-content js-scrollbar1">
+    <nav class="navbar-sidebar">
+      <ul class="list-unstyled navbar-list">
+        @for (cat of categories; track cat.id) {
+          <li>
+            <a routerLink="/products/{{cat.id}}/{{cat.categoryName}}" routerLinkActive="active-link"
+               ariaCurrentWhenActive="page">{{ cat.categoryName }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+  </div>
+</aside>
+<!-- END MENU SIDEBAR-->
