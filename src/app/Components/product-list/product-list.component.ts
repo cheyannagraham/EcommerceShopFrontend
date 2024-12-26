@@ -120,11 +120,10 @@ export class ProductListComponent {
   }
 
   updatePageSize(pagesize: string) {
-    // console.log("pagesize UPdate")
-    // this.productsPage.page.size = parseInt(pagesize);
-    // this.productsPage.page.number = 0;
-    // this.determineProductsToShow();
-    // this.listProducts();
+    console.log("----------------------pagesize Update-----------------");
+    this.productsPage.page.size = +pagesize;
+    this.productsPage.page.number = 0;
+    this.determineProductsToShow();
   }
 
   removeSubscriptions() {
