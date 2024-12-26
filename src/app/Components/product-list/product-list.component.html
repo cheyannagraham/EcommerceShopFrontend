@@ -25,27 +25,31 @@
         </div>
       }
 
-      <div class="footer-pagination">
-        <div class="d-flex justify-content-end">
+      <div class="footer-pagination my-3">
 
-          <ngb-pagination class="d-flex justify-content-end" [collectionSize]="productsPage.page.totalElements"
-                          [page]="productsPage.page.number + 1"
-                          [boundaryLinks]="true" [pageSize]="productsPage.page.size"
-                          (pageChange)="updatePage($event)" [ellipses]="true" [maxSize]="3"
-                          aria-label="Product results page"></ngb-pagination>
-        </div>
-        <div>
-          <label for="pageSizeSelect">Page Size</label>
-          <select id="pageSizeSelect" class="form-select" aria-label="page size select" #pageSizeSelect
-                  (change)="updatePageSize(pageSizeSelect.value)">
-            <option value="5" selected=true>5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="25">25</option>
-          </select>
-        </div>
+        <div class="row d-flex justify-content-end">
+          <div class="col-10">
+            <ngb-pagination class="d-flex justify-content-end" [collectionSize]="productsPage.page.totalElements"
+                            [page]="productsPage.page.number + 1"
+                            [boundaryLinks]="true" [pageSize]="productsPage.page.size"
+                            (pageChange)="updatePage($event)" [ellipses]="true" [maxSize]="3"
+                            aria-label="Product results page"></ngb-pagination>
+          </div>
 
+          <div class="col-2">
+            <div class="form-floating">
+              <select id="pageSizeSelect" class="form-select" aria-label="page size select" #pageSizeSelect
+                      (change)="updatePageSize(pageSizeSelect.value)">
+                <option value="5" selected=true>5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+              </select>
+              <label for="pageSizeSelect" class="form-label">Page Size</label>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
