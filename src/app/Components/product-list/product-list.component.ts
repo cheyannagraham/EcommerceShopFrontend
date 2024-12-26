@@ -24,7 +24,7 @@ export class ProductListComponent {
     products: [],
     //defaults
     page: {
-      size: 5,
+      size: 10,
       totalElements: 0,
       totalPages: 1,
       number: 0
@@ -37,13 +37,11 @@ export class ProductListComponent {
   }
 
   ngOnInit(): void {
-    console.log("------------INITIALIZED---------------");
     this.subscribeToProducts();
     this.initialized = true;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("------------ONCHANGE---------------");
     if (this.initialized) this.determineProductsToShow(changes);
   }
 
@@ -52,39 +50,24 @@ export class ProductListComponent {
   }
 
   determineProductsToShow(changes: any | undefined = undefined): void {
-    console.log("In determineProductsToShow", changes);
-    //determine when just the page changed
-    console.log("------------INPUTS---------------");
-    console.log("CategoryName: ", this.categoryName);
-    console.log("Keyword: ", this.keyword);
-
-
     if (this.keyword) {
-      console.log("KEYWORD Changes", changes);
       // new/modifed keyword
       if (this.keyword && changes?.keyword) this.productsPage.page.number = 0;
       this.productService.searchProducts(this.keyword!, this.productsPage.page);
 
     } else if (this.categoryName) {
-      console.log("CATEGORY CHANGE: ", changes);
       //Change came from onChange event (user click category)
       if (this.categoryName && changes?.categoryName) this.productsPage.page.number = 0;
       this.productService.getProductsByCategory(this.categoryId, this.productsPage.page);
 
      // in all products view (not search, not category)
-    } else {
-      console.log("NO changes in determine products to show")
-      this.productService.getProducts(this.productsPage.page);
-    }
+    } else this.productService.getProducts(this.productsPage.page);
   }
 
   subscribeToProducts() {
-    console.log("---------------SUBSCRIBING1--------------");
-
     this.subscriptions.push(
       this.productService.productsPage.subscribe({
         next: (productsPage: ProductListPage) => {
-          console.log(productsPage);
           this.productsPage =
             {
               products: productsPage.products,
@@ -95,8 +78,6 @@ export class ProductListComponent {
                 number: productsPage.page.number// + 1
               }
             };
-          console.log("---------------SUBSCRIBING2--------------");
-          console.log(this.productsPage);
         },
         error: (error: any) => {
           console.log("-----------------Error in Subscription-----------------");
@@ -113,14 +94,12 @@ export class ProductListComponent {
   updatePage(newPageNumber: number) {
     newPageNumber--;
     if(newPageNumber != this.productsPage.page.number){
-      console.log("--------------------UPDATING PAGE NUMBER----------------------")
       this.productsPage.page.number = newPageNumber;
       this.determineProductsToShow();
     }
   }
 
   updatePageSize(pagesize: string) {
-    console.log("----------------------pagesize Update-----------------");
     this.productsPage.page.size = +pagesize;
     this.productsPage.page.number = 0;
     this.determineProductsToShow();

@@ -17,14 +17,12 @@ export class ProductService {
 
   private setProducts(products: ProductListPage) {
     this.productsPage.next(products);
-    console.log("In setProducts: ", products);
   }
 
   private productRequest(url: string) {
     this.subscriptions.push(
       this.httpClient.get<ProductListResponse>(url)
         .subscribe(response => {
-          console.log("In productRequest: ", response)
           this.setProducts({
             products: response._embedded.products,
             page: response.page
@@ -34,8 +32,6 @@ export class ProductService {
   }
 
   getProducts(page:any) {
-    console.log("in get products request", page);
-
     this.productRequest(`${this.baseUrl}/products?page=${page.number}&size=${page.size}`);
   }
 
