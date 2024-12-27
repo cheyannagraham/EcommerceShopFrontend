@@ -8,7 +8,7 @@
         <div>
           <h3 class="m-2 p-2">{{ product.name }}</h3>
           <p class="price p-2 m-2">{{ product.unitPrice | currency:"USD" }}</p>
-          <a href="shopping-detail.html" class="primary-btn m-2">Add to cart</a>
+          <button (click)="addProductToCart(product)" class="btn btn-dark m-2">Add to cart</button>
 
           <h4 class="m-2 p-2">Product Description</h4>
           <p class="m-2 p-2">{{ product.description }}</p>
