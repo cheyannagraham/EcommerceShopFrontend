@@ -3,10 +3,11 @@ import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProductService } from '../../Services/product.service';
 import {Location} from '@angular/common';
 import {Router} from '@angular/router';
+import {CartStatusComponent} from '../cart-status/cart-status.component';
 
 @Component({
   selector: 'app-search',
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, CartStatusComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
