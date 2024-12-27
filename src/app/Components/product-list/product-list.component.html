@@ -6,14 +6,14 @@
 
         @for (product of productsPage!.products; track product.id) {
           <div class="col-3 card bg-transparent border-0">
-            <div class="text-center ">
+            <div class="text-center">
               <a routerLink="/products/{{product.id}}">
                 <img src="{{ product.imageUrl}}" alt="" class="card-img-top img-responsive">
               </a>
               <div class="product-box card-body">
                 <a routerLink="/products/{{product.id}}" class="card-title"><h1>{{ product.name }}</h1></a>
                 <div class="price">{{ product.unitPrice | currency: 'USD' }}</div>
-                <a href="#" class="primary-btn">Add to cart</a>
+                <button (click)="addProductToCart(product)" class="btn btn-dark">Add to cart</button>
               </div>
             </div>
           </div>

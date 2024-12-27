@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {RouterLink} from '@angular/router';
 import {HistoryComponent} from '../history/history.component';
 import {NgbPagination} from '@ng-bootstrap/ng-bootstrap';
+import {CartService} from '../../Services/cart.service';
 
 @Component({
   selector: 'app-product-list',
@@ -33,7 +34,7 @@ export class ProductListComponent {
   subscriptions: Subscription[] = [];
   initialized = false;
 
-  constructor(private productService: ProductService, public location: Location) {
+  constructor(private productService: ProductService, public location: Location,public cartService: CartService) {
   }
 
   ngOnInit(): void {
@@ -103,6 +104,11 @@ export class ProductListComponent {
     this.productsPage.page.size = +pagesize;
     this.productsPage.page.number = 0;
     this.determineProductsToShow();
+  }
+
+  addProductToCart(product: ProductModel) {
+    this.cartService.addToCart(product);
+
   }
 
   removeSubscriptions() {
