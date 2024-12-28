@@ -3,11 +3,12 @@ import {CartService} from '../../Services/cart.service';
 import {CurrencyPipe} from '@angular/common';
 import {faShoppingCart} from '@fortawesome/free-solid-svg-icons';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
+import {RouterLink} from '@angular/router';
 
 
 @Component({
   selector: 'app-cart-status',
-  imports: [CurrencyPipe, FaIconComponent],
+  imports: [CurrencyPipe, FaIconComponent, RouterLink],
   templateUrl: './cart-status.component.html',
   styleUrl: './cart-status.component.css'
 })
