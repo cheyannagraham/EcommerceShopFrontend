@@ -1,7 +1,8 @@
-<div class="cart-area d-n">
-  <a href="shopping-detail.html">
+<div class="cart-area d-n d-flex align-items-baseline justify-content-between">
+<!--  <a href="shopping-detail.html">-->
     <div class="total">{{ cartPrice.toFixed(2) | currency: "USD" }} <span> {{ cartQuantity }}</span></div>
-    <i class="fa fa-shopping-cart"
-       aria-hidden="true"></i>
-  </a>
+    <div class="mx-3">
+      <fa-icon class="shopping-cart-icon"[icon]="faShoppingCart" size="2xl"></fa-icon>
+    </div>
+<!--  </a>-->
 </div>
