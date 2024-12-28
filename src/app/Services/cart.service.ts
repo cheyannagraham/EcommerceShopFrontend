@@ -8,8 +8,8 @@ import {ProductModel} from '../Models/product.model';
 })
 export class CartService {
   private cart = new Map<number, CartItemModel>();
-  private totalItems = new Subject<number>();
-  private totalCost = new Subject<number>();
+  public totalItems = new Subject<number>();
+  public totalCost = new Subject<number>();
 
   constructor() {
   }
