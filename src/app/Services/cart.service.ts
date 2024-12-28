@@ -7,7 +7,7 @@ import {ProductModel} from '../Models/product.model';
   providedIn: 'root'
 })
 export class CartService {
-  private cart = new Map<number, CartItemModel>();
+  public cart = new Map<number, CartItemModel>();
   public totalItems = new Subject<number>();
   public totalCost = new Subject<number>();
 
