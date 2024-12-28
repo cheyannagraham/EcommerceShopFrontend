@@ -4,7 +4,7 @@
     <div
       class="container-fluid d-flex flex-wrap flex-lg-nowrap justify-content-center align-items-center text-center text-md-left">
       @if (product) {
-        <img src={{product.imageUrl}} class="img-responsive" width="300">
+        <img src="{{product.imageUrl}}" class="img-responsive" width="300">
         <div>
           <h3 class="m-2 p-2">{{ product.name }}</h3>
           <p class="price p-2 m-2">{{ product.unitPrice | currency:"USD" }}</p>

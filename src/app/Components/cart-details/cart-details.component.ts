@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
 import {CartItemModel} from '../../Models/cartItem.model';
 import {CartService} from '../../Services/cart.service';
+import {of} from 'rxjs';
+import {CurrencyPipe, KeyValuePipe} from '@angular/common';
 
 @Component({
   selector: 'app-cart-details',
-  imports: [],
+  imports: [
+    KeyValuePipe,
+    CurrencyPipe
+  ],
   templateUrl: './cart-details.component.html',
   styleUrl: './cart-details.component.css'
 })
@@ -15,13 +20,14 @@ export class CartDetailsComponent {
 
   constructor(private cartService: CartService) {
     this.cartItems = this.cartService.cart;
+    console.log(this.cartItems);
   }
 
   ngOnInit() {
-    this.subcribeToCartItems();
+    this.subscribeToCartItems();
   }
 
-  subcribeToCartItems(): void {
+  subscribeToCartItems(): void {
     this.cartService.totalItems.subscribe((totalItems) => {
       this.cartQuantity = totalItems;
     });
@@ -33,4 +39,5 @@ export class CartDetailsComponent {
     this.cartService.calculateCartTotals();
   }
 
+  protected readonly of = of;
 }
