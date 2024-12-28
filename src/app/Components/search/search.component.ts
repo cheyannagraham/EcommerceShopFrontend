@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { ProductService } from '../../Services/product.service';
-import {Location} from '@angular/common';
 import {Router} from '@angular/router';
 import {CartStatusComponent} from '../cart-status/cart-status.component';
+import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
+import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-search',
-  imports: [ReactiveFormsModule, FormsModule, CartStatusComponent],
+  imports: [ReactiveFormsModule, FormsModule, CartStatusComponent, FaIconComponent],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -25,4 +25,6 @@ export class SearchComponent {
     this.router.navigateByUrl(`/products/search/${keyword}`);
 
   }
+
+  protected readonly faMagnifyingGlass = faMagnifyingGlass;
 }

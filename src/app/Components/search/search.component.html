@@ -7,8 +7,8 @@
         <form class="form-header" (submit)="handleSubmit($event);" method="GET">
           <input [formControl]="searchControl" class="au-input au-input-xl" type="text" name="search"
                  placeholder="Search for data ..."/>
-          <button class="au-btn-submit" type="submit">
-            Search
+          <button type="submit">
+            <fa-icon class="maginfying-glass-icon" [icon]="faMagnifyingGlass" size="2xl"></fa-icon>
           </button>
         </form>
         <app-cart-status></app-cart-status>
