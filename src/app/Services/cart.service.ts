@@ -18,8 +18,8 @@ export class CartService {
     let item = this.cart.get(product.id);
     if (item) item.quantity++;
     else {
-      let cartItem: CartItemModel = new CartItemModel(product);
-      this.cart.set(product.id, cartItem);
+      item = new CartItemModel(product);
+      this.cart.set(product.id, item);
     }
     this.calculateCartTotals();
   }
@@ -34,11 +34,9 @@ export class CartService {
       cost += (cartItem.quantity * cartItem.price);
     });
 
-    console.log("ITEMS IN CART " ,quantity);
-    console.log("Cost of CART " , cost);
-
     this.totalCost.next(cost);
     this.totalItems.next(quantity);
-
   }
+
+  updateCart() {}
 }
