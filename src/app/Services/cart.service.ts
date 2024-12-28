@@ -21,6 +21,24 @@ export class CartService {
       let cartItem: CartItemModel = new CartItemModel(product);
       this.cart.set(product.id, cartItem);
     }
-    console.log(this.cart);
+    this.calculateCartTotals();
+  }
+
+  // Wouldnt calculate cart like this. instead would +- for each item, not recalculate whole cart
+  calculateCartTotals() {
+    let quantity = 0;
+    let cost = 0;
+
+    this.cart.forEach((cartItem: CartItemModel) => {
+      quantity += cartItem.quantity;
+      cost += (cartItem.quantity * cartItem.price);
+    });
+
+    console.log("ITEMS IN CART " ,quantity);
+    console.log("Cost of CART " , cost);
+
+    this.totalCost.next(cost);
+    this.totalItems.next(quantity);
+
   }
 }

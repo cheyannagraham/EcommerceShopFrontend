@@ -5,7 +5,7 @@ export class CartItemModel {
   name: string;
   imageUrl: string;
   price: number;
-  constructor(public product: ProductModel, public quantity: number = 0) {
+  constructor(public product: ProductModel, public quantity: number = 1) {
     this.id = product.id;
     this.name = product.name;
     this.imageUrl = product.imageUrl;
