@@ -3,12 +3,14 @@ import {CartItemModel} from '../../Models/cartItem.model';
 import {CartService} from '../../Services/cart.service';
 import {of} from 'rxjs';
 import {CurrencyPipe, KeyValuePipe} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-cart-details',
   imports: [
     KeyValuePipe,
-    CurrencyPipe
+    CurrencyPipe,
+    RouterLink
   ],
   templateUrl: './cart-details.component.html',
   styleUrl: './cart-details.component.css'
