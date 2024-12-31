@@ -5,6 +5,7 @@ import {ProductService} from '../../Services/product.service';
 import {Subscription} from 'rxjs';
 import {HistoryComponent} from '../history/history.component';
 import {CartService} from '../../Services/cart.service';
+import {SubscriptionManagementService} from '../../Services/subscription-management.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,7 +18,8 @@ export class ProductDetailComponent {
   product: ProductModel | null = null;
   subscriptions: Subscription[] = [];
 
-  constructor(private productService: ProductService, private location: Location, public cartService: CartService) {
+  constructor(private productService: ProductService, private location: Location,
+              public cartService: CartService, public subService: SubscriptionManagementService) {
   }
 
   ngOnInit() {
@@ -25,7 +27,7 @@ export class ProductDetailComponent {
   }
 
   ngOnDestroy() {
-    this.removeSubscriptions();
+    this.subService.unSubscribe(this.subscriptions);
   }
 
 
@@ -33,20 +35,13 @@ export class ProductDetailComponent {
     this.subscriptions.push(
       this.productService.getProduct(this.id)
         .subscribe(product => {
+          console.log("check, check")
           this.product = product;
         })
-    )
+    );
   }
 
   addProductToCart(product: ProductModel) {
     this.cartService.addToCart(product);
   }
-
-  removeSubscriptions() {
-    while (this.subscriptions.length > 0) {
-      let sub = this.subscriptions.pop();
-      sub!.unsubscribe();
-    }
-  }
-
 }

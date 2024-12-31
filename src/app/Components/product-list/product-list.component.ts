@@ -7,6 +7,7 @@ import {RouterLink} from '@angular/router';
 import {HistoryComponent} from '../history/history.component';
 import {NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {CartService} from '../../Services/cart.service';
+import {SubscriptionManagementService} from '../../Services/subscription-management.service';
 
 @Component({
   selector: 'app-product-list',
@@ -34,7 +35,7 @@ export class ProductListComponent {
   subscriptions: Subscription[] = [];
   initialized = false;
 
-  constructor(private productService: ProductService, public location: Location,public cartService: CartService) {
+  constructor(private productService: ProductService, public location: Location, public cartService: CartService, public subService: SubscriptionManagementService) {
   }
 
   ngOnInit(): void {
@@ -47,7 +48,8 @@ export class ProductListComponent {
   }
 
   ngOnDestroy(): void {
-    this.removeSubscriptions();
+    this.subService.unSubscribe(this.subscriptions);
+
   }
 
   determineProductsToShow(changes: any | undefined = undefined): void {
@@ -61,7 +63,7 @@ export class ProductListComponent {
       if (this.categoryName && changes?.categoryName) this.productsPage.page.number = 0;
       this.productService.getProductsByCategory(this.categoryId, this.productsPage.page);
 
-     // in all products view (not search, not category)
+      // in all products view (not search, not category)
     } else this.productService.getProducts(this.productsPage.page);
   }
 
@@ -94,7 +96,7 @@ export class ProductListComponent {
 
   updatePage(newPageNumber: number) {
     newPageNumber--;
-    if(newPageNumber != this.productsPage.page.number){
+    if (newPageNumber != this.productsPage.page.number) {
       this.productsPage.page.number = newPageNumber;
       this.determineProductsToShow();
     }
@@ -108,14 +110,7 @@ export class ProductListComponent {
 
   addProductToCart(product: ProductModel) {
     this.cartService.addToCart(product);
-
-  }
-
-  removeSubscriptions() {
-    while (this.subscriptions.length > 0) {
-      let sub = this.subscriptions.pop();
-      sub?.unsubscribe();
-    }
   }
 }
+
 

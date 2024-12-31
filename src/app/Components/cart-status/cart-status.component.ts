@@ -4,6 +4,8 @@ import {CurrencyPipe} from '@angular/common';
 import {faShoppingCart} from '@fortawesome/free-solid-svg-icons';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {RouterLink} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {SubscriptionManagementService} from '../../Services/subscription-management.service';
 
 
 @Component({
@@ -15,23 +17,27 @@ import {RouterLink} from '@angular/router';
 export class CartStatusComponent {
   cartPrice = 0;
   cartQuantity = 0;
+  subscriptions: Subscription[] = [];
 
-
-  constructor(public cartService: CartService) {
+  constructor(public cartService: CartService, public subService: SubscriptionManagementService) {
   }
 
   ngOnInit() {
     this.subscribeToCart();
   }
 
-  subscribeToCart() {
-    this.cartService.totalItems.subscribe((totalItems) => {
-      this.cartQuantity = totalItems;
-    });
+  ngOnDestroy() {
+    this.subService.unSubscribe(this.subscriptions);
+  }
 
-    this.cartService.totalCost.subscribe((totalCost) => {
+  subscribeToCart() {
+    this.subscriptions.push(this.cartService.totalItems.subscribe((totalItems) => {
+      this.cartQuantity = totalItems;
+    }));
+
+    this.subscriptions.push(this.cartService.totalCost.subscribe((totalCost) => {
       this.cartPrice = totalCost;
-    })
+    }));
   }
 
 
