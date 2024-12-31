@@ -80,14 +80,36 @@
           </div>
         </div>
 
-
         <div class="form-area" formGroupName="creditCard">
           <h3>Credit Card</h3>
+          <div>
+            <label for="cardType" class="form-label fw-bold">Card Type</label>
+            <input id="cardType" class="form-control au-input input-space" type="text" formControlName="cardType">
+          </div>
+          <div>
+            <label for="cardholderName" class="form-label fw-bold">Name on Card</label>
+            <input id="cardholderName" class="form-control au-input input-space" type="text"
+                   formControlName="cardholderName">
+          </div>
+          <div>
+            <label for="cardNumber" class="form-label fw-bold">Card Number</label>
+            <input id="cardNumber" class="form-control au-input input-space" type="number" formControlName="cardNumber">
+          </div>
+          <div>
+            <label for="secCode" class="form-label fw-bold">Security Code</label>
+            <input id="secCode" class="form-control au-input input-space" type="text" formControlName="secCode">
+          </div>
+          <div>
+            <label for="expMonth" class="form-label fw-bold">Expiration Month</label>
+            <input id="expMonth" class="form-control au-input input-space" type="number" formControlName="expMonth">
+          </div>
+          <div>
+            <label for="expYear" class="form-label fw-bold">Expiration Year</label>
+            <input id="expYear" class="form-control au-input input-space" type="number" formControlName="expYear">
+          </div>
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
       </form>
-
-
     </div>
   </div>
 </div>
