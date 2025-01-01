@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Form, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormService} from '../../Services/form.service';
 
 @Component({
   selector: 'app-checkout',
@@ -10,9 +11,14 @@ import {Form, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsMod
 export class CheckoutComponent {
   checkoutForm: any;
   billingSameAsShipping: FormControl;
+  ccMonths: number[];
+  ccYears: number[];
 
-  constructor(public formBuilder: FormBuilder) {
+
+  constructor(public formBuilder: FormBuilder, public formService: FormService) {
     this.billingSameAsShipping = new FormControl("");
+    this.ccMonths = this.formService.getCreditCardMonths();
+    this.ccYears = this.formService.getCreditCardYears();
   }
 
   ngOnInit() {
@@ -63,6 +69,15 @@ export class CheckoutComponent {
     this.billingSameAsShipping.value ?
       this.checkoutForm.patchValue({billingAddress: this.checkoutForm.value.shippingAddress}) :
       this.checkoutForm.get("billingAddress").reset();
+  }
+
+  handleMonthsAndYears() {
+    let startMonth = 1;
+    let selectedYear = this.checkoutForm.get("creditCard").value.expYear;
+    if (selectedYear == new Date().getFullYear()) {
+      startMonth = new Date().getMonth() + 1;
+    }
+      this.ccMonths = this.formService.getCreditCardMonths(startMonth);
   }
 
 }

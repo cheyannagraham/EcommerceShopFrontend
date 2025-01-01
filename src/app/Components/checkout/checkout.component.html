@@ -101,11 +101,19 @@
           </div>
           <div>
             <label for="expMonth" class="form-label fw-bold">Expiration Month</label>
-            <input id="expMonth" class="form-control au-input input-space" type="number" formControlName="expMonth">
+            <select id="expMonth" class="form-select input-space" formControlName="expMonth">
+              @for(month of ccMonths; track month){
+                <option value="{{month}}">{{month}}</option>
+              }
+            </select>
           </div>
           <div>
             <label for="expYear" class="form-label fw-bold">Expiration Year</label>
-            <input id="expYear" class="form-control au-input input-space" type="number" formControlName="expYear">
+            <select id="expYear" class="form-select input-space" formControlName="expYear" (change)="handleMonthsAndYears()">
+              @for(year of ccYears; track year){
+                <option value="{{year}}">{{year}}</option>
+              }
+            </select>
           </div>
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
