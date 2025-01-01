@@ -11,13 +11,13 @@ import {StateModel} from '../../Models/state.model';
   styleUrl: './checkout.component.css'
 })
 export class CheckoutComponent {
-  // @ts-ignore
   checkoutForm: FormGroup;
   billingSameAsShipping: FormControl;
   ccMonths: number[];
   ccYears: number[];
   countries: CountryModel[] = [];
-  states:any = {};
+  // @ts-ignore
+  states : {"shippingAddress": StateModel[], "billingAddress": StateModel[]} = {};
 
 
   constructor(public formBuilder: FormBuilder, public formService: FormService) {
@@ -72,9 +72,10 @@ export class CheckoutComponent {
   }
 
   setBillingSameAsShipping() {
-    this.billingSameAsShipping.value ?
-      this.checkoutForm.patchValue({billingAddress: this.checkoutForm.value.shippingAddress}) :
-      this.checkoutForm.get("billingAddress")!.reset();
+    if(this.billingSameAsShipping.value){
+      this.states.billingAddress = this.states.shippingAddress;
+      this.checkoutForm.patchValue({billingAddress: this.checkoutForm.value.shippingAddress});
+    } else this.checkoutForm.get("billingAddress")!.reset();
   }
 
   handleMonthsAndYears() {
@@ -95,6 +96,7 @@ export class CheckoutComponent {
   getCountryStates(formGroup: string) {
     let country = this.checkoutForm.get(formGroup)!.value.country;
     this.formService.getStates(country).subscribe(states => {
+      // @ts-ignore
       this.states[formGroup] = states;
     })
   }
