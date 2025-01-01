@@ -28,9 +28,18 @@
           <h3>Shipping</h3>
           <div>
             <label for="shippingCountry" class="form-label fw-bold">Country</label>
-            <select id="shippingCountry" class="form-select input-space" formControlName="country">
+            <select id="shippingCountry" class="form-select input-space" formControlName="country"
+                    (change)="getCountryStates('shippingAddress')">
               @for (country of countries; track country.id) {
-                <option value="{{country.code}}">{{ country.name }}</option>
+                <option value="{{country.id}}">{{ country.name }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <label for="shippingState" class="form-label fw-bold">State</label>
+            <select id="shippingState" class="form-select input-space" formControlName="state">
+              @for (state of states["shippingAddress"]; track state.id) {
+                <option value="{{state.id}}">{{ state.name }}</option>
               }
             </select>
           </div>
@@ -42,10 +51,6 @@
           <div>
             <label for="shippingCity" class="form-label fw-bold">City</label>
             <input id="shippingCity" class="form-control au-input input-space" type="text" formControlName="city">
-          </div>
-          <div>
-            <label for="shippingState" class="form-label fw-bold">State</label>
-            <input id="shippingState" class="form-control au-input input-space" type="text" formControlName="state">
           </div>
           <div>
             <label for="shippingZipCode" class="form-label fw-bold">Zip Code</label>
@@ -63,9 +68,18 @@
           <h3>Billing</h3>
           <div>
             <label for="billingCountry" class="form-label fw-bold">Country</label>
-            <select id="billingCountry" class="form-select input-space" formControlName="country">
+            <select id="billingCountry" class="form-select input-space" formControlName="country"
+                    (change)="getCountryStates('billingAddress')">
               @for (country of countries; track country.id) {
-                <option value="{{country.code}}">{{ country.name }}</option>
+                <option value="{{country.id}}">{{ country.name }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <label for="billingState" class="form-label fw-bold">State</label>
+            <select id="billingState" class="form-select au-input input-space" formControlName="state">
+              @for (state of states["billingAddress"]; track state.id) {
+                <option value="{{state.id}}">{{ state.name }}</option>
               }
             </select>
           </div>
@@ -77,10 +91,6 @@
           <div>
             <label for="billingCity" class="form-label fw-bold">City</label>
             <input id="billingCity" class="form-control au-input input-space" type="text" formControlName="city">
-          </div>
-          <div>
-            <label for="billingState" class="form-label fw-bold">State</label>
-            <input id="billingState" class="form-control au-input input-space" type="text" formControlName="state">
           </div>
           <div>
             <label for="billingZipCode" class="form-label fw-bold">Zip Code</label>

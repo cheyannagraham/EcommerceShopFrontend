@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs';
 import {CountryListResponse} from '../Models/country.model';
+import {StateListResponse} from '../Models/state.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,13 @@ export class FormService {
     return this.httpClient.get<CountryListResponse>("http://localhost:8080/api/countries")
       .pipe(map(response => response._embedded.countries));
   }
+
+  getStates(countryId:number) {
+    return this.httpClient.get<StateListResponse>(`http://localhost:8080/api/states/search/findAllByCountryId?countryId=${countryId}`)
+      .pipe(map(response => response._embedded.states));
+  }
+
+
 }
 
 

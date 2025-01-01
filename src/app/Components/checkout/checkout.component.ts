@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Form, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {FormService} from '../../Services/form.service';
 import {CountryModel} from '../../Models/country.model';
+import {StateModel} from '../../Models/state.model';
 
 @Component({
   selector: 'app-checkout',
@@ -10,11 +11,13 @@ import {CountryModel} from '../../Models/country.model';
   styleUrl: './checkout.component.css'
 })
 export class CheckoutComponent {
-  checkoutForm: any;
+  // @ts-ignore
+  checkoutForm: FormGroup;
   billingSameAsShipping: FormControl;
   ccMonths: number[];
   ccYears: number[];
   countries: CountryModel[] = [];
+  states:any = {};
 
 
   constructor(public formBuilder: FormBuilder, public formService: FormService) {
@@ -71,21 +74,28 @@ export class CheckoutComponent {
   setBillingSameAsShipping() {
     this.billingSameAsShipping.value ?
       this.checkoutForm.patchValue({billingAddress: this.checkoutForm.value.shippingAddress}) :
-      this.checkoutForm.get("billingAddress").reset();
+      this.checkoutForm.get("billingAddress")!.reset();
   }
 
   handleMonthsAndYears() {
     let startMonth = 1;
-    let selectedYear = this.checkoutForm.get("creditCard").value.expYear;
+    let selectedYear = this.checkoutForm.get("creditCard")!.value.expYear;
     if (selectedYear == new Date().getFullYear()) {
       startMonth = new Date().getMonth() + 1;
     }
-      this.ccMonths = this.formService.getCreditCardMonths(startMonth);
+    this.ccMonths = this.formService.getCreditCardMonths(startMonth);
   }
 
-  getCountries(){
+  getCountries() {
     this.formService.getCountries().subscribe(countries => {
       this.countries = countries;
+    })
+  }
+
+  getCountryStates(formGroup: string) {
+    let country = this.checkoutForm.get(formGroup)!.value.country;
+    this.formService.getStates(country).subscribe(states => {
+      this.states[formGroup] = states;
     })
   }
 
