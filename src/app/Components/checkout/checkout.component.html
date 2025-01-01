@@ -121,7 +121,7 @@
             <label for="expMonth" class="form-label fw-bold">Expiration Month</label>
             <select id="expMonth" class="form-select input-space" formControlName="expMonth">
               @for (month of ccMonths; track month) {
-                <option value="{{month}}">{{ month }}</option>
+                <option value={{month}}>{{ month }}</option>
               }
             </select>
           </div>

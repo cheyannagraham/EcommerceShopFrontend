@@ -68,7 +68,7 @@ export class CheckoutComponent {
   }
 
   submitForm() {
-    console.log(this.checkoutForm.value);
+    console.log("FORM SUBMITTED: ",this.checkoutForm.value);
   }
 
   setBillingSameAsShipping() {

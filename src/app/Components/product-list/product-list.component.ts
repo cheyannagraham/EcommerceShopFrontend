@@ -1,6 +1,6 @@
 import {Component, Input, SimpleChanges} from '@angular/core';
-import {ProductListPage, ProductService} from '../../Services/product.service';
-import {ProductModel} from '../../Models/product.model'
+import {ProductService} from '../../Services/product.service';
+import {ProductListPage, ProductModel} from '../../Models/product.model'
 import {CurrencyPipe, Location} from '@angular/common';
 import {Subscription} from 'rxjs';
 import {RouterLink} from '@angular/router';
@@ -35,8 +35,10 @@ export class ProductListComponent {
   subscriptions: Subscription[] = [];
   initialized = false;
 
-  constructor(private productService: ProductService, public location: Location, public cartService: CartService, public subService: SubscriptionManagementService) {
-  }
+  constructor(private productService: ProductService,
+              public location: Location,
+              public cartService: CartService,
+              public subService: SubscriptionManagementService) {}
 
   ngOnInit(): void {
     this.subscribeToProducts();

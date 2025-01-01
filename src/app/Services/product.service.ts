@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ProductModel} from '../Models/product.model';
+import {ProductListPage, ProductListResponse, ProductModel} from '../Models/product.model';
 import {Subject, Subscription} from 'rxjs';
 import {Router} from '@angular/router';
+import {SubscriptionManagementService} from './subscription-management.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ProductService {
   productsPage = new Subject<ProductListPage>();
   subscriptions: Subscription[] = [];
 
-  constructor(private httpClient: HttpClient, private router: Router) {
+  constructor(private httpClient: HttpClient, private router: Router, private subService:SubscriptionManagementService) {
   }
 
   private setProducts(products: ProductListPage) {
@@ -47,36 +48,9 @@ export class ProductService {
     return this.httpClient.get<ProductModel>(`${this.baseUrl}/products/${id}`);
   }
 
-  removeSubscriptions() {
-    while (this.subscriptions.length > 0) {
-      let sub = this.subscriptions.pop();
-      sub?.unsubscribe();
-    }
-  }
-
   ngOnDestroy(): void {
-    this.removeSubscriptions()
+    this.subService.unSubscribe(this.subscriptions);
   }
 }
 
-interface ProductListResponse {
-  _embedded: {
-    products: ProductModel[];
-  },
-  page: {
-    size: number,
-    totalElements: number,
-    totalPages: number,
-    number: number
-  }
-}
 
-export interface ProductListPage {
-  products: ProductModel[],
-  page: {
-    size: number,
-    totalElements: number,
-    totalPages: number,
-    number: number
-  }
-}

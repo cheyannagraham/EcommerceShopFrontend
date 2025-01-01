@@ -35,7 +35,6 @@ export class ProductDetailComponent {
     this.subscriptions.push(
       this.productService.getProduct(this.id)
         .subscribe(product => {
-          console.log("check, check")
           this.product = product;
         })
     );

@@ -14,3 +14,25 @@ export class ProductModel {
               public lastUpdated: Date) {
   }
 }
+
+export interface ProductListResponse {
+  _embedded: {
+    products: ProductModel[];
+  },
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
+  }
+}
+
+export interface ProductListPage {
+  products: ProductModel[],
+  page: {
+    size: number,
+    totalElements: number,
+    totalPages: number,
+    number: number
+  }
+}

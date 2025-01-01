@@ -23,8 +23,6 @@ export class SearchComponent {
 
   searchProducts(keyword: string)  {
     this.router.navigateByUrl(`/products/search/${keyword}`);
-
   }
-
   protected readonly faMagnifyingGlass = faMagnifyingGlass;
 }
