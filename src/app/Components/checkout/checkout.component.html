@@ -28,7 +28,11 @@
           <h3>Shipping</h3>
           <div>
             <label for="shippingCountry" class="form-label fw-bold">Country</label>
-            <input id="shippingCountry" class="form-control au-input input-space" type="text" formControlName="country">
+            <select id="shippingCountry" class="form-select input-space" formControlName="country">
+              @for (country of countries; track country.id) {
+                <option value="{{country.code}}">{{ country.name }}</option>
+              }
+            </select>
           </div>
           <div>
             <label for="shippingStreetAddress" class="form-label fw-bold">Street Address</label>
@@ -59,7 +63,11 @@
           <h3>Billing</h3>
           <div>
             <label for="billingCountry" class="form-label fw-bold">Country</label>
-            <input id="billingCountry" class="form-control au-input input-space" type="text" formControlName="country">
+            <select id="billingCountry" class="form-select input-space" formControlName="country">
+              @for (country of countries; track country.id) {
+                <option value="{{country.code}}">{{ country.name }}</option>
+              }
+            </select>
           </div>
           <div>
             <label for="billingStreetAddress" class="form-label fw-bold">Street Address</label>
@@ -102,16 +110,17 @@
           <div>
             <label for="expMonth" class="form-label fw-bold">Expiration Month</label>
             <select id="expMonth" class="form-select input-space" formControlName="expMonth">
-              @for(month of ccMonths; track month){
-                <option value="{{month}}">{{month}}</option>
+              @for (month of ccMonths; track month) {
+                <option value="{{month}}">{{ month }}</option>
               }
             </select>
           </div>
           <div>
             <label for="expYear" class="form-label fw-bold">Expiration Year</label>
-            <select id="expYear" class="form-select input-space" formControlName="expYear" (change)="handleMonthsAndYears()">
-              @for(year of ccYears; track year){
-                <option value="{{year}}">{{year}}</option>
+            <select id="expYear" class="form-select input-space" formControlName="expYear"
+                    (change)="handleMonthsAndYears()">
+              @for (year of ccYears; track year) {
+                <option value="{{year}}">{{ year }}</option>
               }
             </select>
           </div>

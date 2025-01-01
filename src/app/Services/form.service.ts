@@ -1,11 +1,14 @@
 import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs';
+import {CountryListResponse} from '../Models/country.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormService {
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
   }
 
   ngOnInit() {
@@ -27,4 +30,11 @@ export class FormService {
     }
     return years;
   }
+
+  getCountries(){
+    return this.httpClient.get<CountryListResponse>("http://localhost:8080/api/countries")
+      .pipe(map(response => response._embedded.countries));
+  }
 }
+
+

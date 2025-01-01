@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Form, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {FormService} from '../../Services/form.service';
+import {CountryModel} from '../../Models/country.model';
 
 @Component({
   selector: 'app-checkout',
@@ -13,6 +14,7 @@ export class CheckoutComponent {
   billingSameAsShipping: FormControl;
   ccMonths: number[];
   ccYears: number[];
+  countries: CountryModel[] = [];
 
 
   constructor(public formBuilder: FormBuilder, public formService: FormService) {
@@ -23,6 +25,7 @@ export class CheckoutComponent {
 
   ngOnInit() {
     this.createForm();
+    this.getCountries();
   }
 
   createForm() {
@@ -78,6 +81,12 @@ export class CheckoutComponent {
       startMonth = new Date().getMonth() + 1;
     }
       this.ccMonths = this.formService.getCreditCardMonths(startMonth);
+  }
+
+  getCountries(){
+    this.formService.getCountries().subscribe(countries => {
+      this.countries = countries;
+    })
   }
 
 }
