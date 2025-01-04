@@ -11,10 +11,38 @@
             <label for="firstName" class="form-label fw-bold">First Name</label>
             <input id="firstName" class="form-control au-input input-space" type="text" formControlName="firstName">
           </div>
+          @if (firstName.invalid && (firstName.dirty || !firstName.untouched)) {
+            <div class="alert alert-danger">
+              @if (firstName.errors.required) {
+                <p> First Name is required</p>
+              }
+              @else if (firstName.errors.minlength) {
+                <p>First Name must be at least 2 characters long</p>
+              }
+              @else if (firstName.errors.noWhitespace) {
+                <p>Please enter valid characters</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="lastName" class="form-label fw-bold">Last Name</label>
             <input id="lastName" class="form-control au-input input-space" type="text" formControlName="lastName">
           </div>
+          @if (lastName.invalid && (lastName.dirty || !lastName.untouched)) {
+            <div class="alert alert-danger">
+              @if (lastName.errors.required) {
+                <p> Last Name is required</p>
+              }
+              @else if (lastName.errors.minlength) {
+                <p>Last Name must be at least 2 characters long</p>
+              }
+              @else if (firstName.errors.noWhitespace) {
+                <p>Please enter valid characters</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="email" class="form-label fw-bold">Email</label>
             <div class="input-group input-space">
@@ -22,6 +50,16 @@
               <span class="input-group-text text-bg-primary"> &#64; </span>
             </div>
           </div>
+          @if (email.invalid && (email.dirty || !email.untouched)) {
+            <div class="alert alert-danger">
+              @if (email.errors.required) {
+                <p>Email address required</p>
+              }
+              @if (email.errors.pattern) {
+                <p>Invalid email format<p>
+                  }
+            </div>
+          }
         </div>
 
         <div class="form-area" formGroupName="shippingAddress">
@@ -54,7 +92,8 @@
           </div>
           <div>
             <label for="shippingZipCode" class="form-label fw-bold">Zip Code</label>
-            <input id="shippingZipCode" class="form-control au-input input-space" type="text" formControlName="zipCode">
+            <input id="shippingZipCode" class="form-control au-input input-space" type="text"
+                   formControlName="zipCode">
           </div>
         </div>
 
@@ -94,7 +133,8 @@
           </div>
           <div>
             <label for="billingZipCode" class="form-label fw-bold">Zip Code</label>
-            <input id="billingZipCode" class="form-control au-input input-space" type="text" formControlName="zipCode">
+            <input id="billingZipCode" class="form-control au-input input-space" type="text"
+                   formControlName="zipCode">
           </div>
         </div>
 
@@ -111,7 +151,8 @@
           </div>
           <div>
             <label for="cardNumber" class="form-label fw-bold">Card Number</label>
-            <input id="cardNumber" class="form-control au-input input-space" type="number" formControlName="cardNumber">
+            <input id="cardNumber" class="form-control au-input input-space" type="number"
+                   formControlName="cardNumber">
           </div>
           <div>
             <label for="secCode" class="form-label fw-bold">Security Code</label>
