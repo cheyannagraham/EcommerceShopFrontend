@@ -128,6 +128,4 @@ export class CheckoutComponent {
   get secCode() { return this.checkoutForm.get("creditCard.secCode");}
   get expMonth() { return this.checkoutForm.get("creditCard.expMonth");}
   get expYear() { return this.checkoutForm.get("creditCard.expYear");}
-
-
 }
