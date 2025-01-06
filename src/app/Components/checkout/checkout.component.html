@@ -15,12 +15,8 @@
             <div class="alert alert-danger">
               @if (firstName.errors.required) {
                 <p> First Name is required</p>
-              }
-              @else if (firstName.errors.minlength) {
+              } @else if (firstName.errors.minlength || firstName.errors.noWhitespace) {
                 <p>First Name must be at least 2 characters long</p>
-              }
-              @else if (firstName.errors.noWhitespace) {
-                <p>Please enter valid characters</p>
               }
             </div>
           }
@@ -33,12 +29,8 @@
             <div class="alert alert-danger">
               @if (lastName.errors.required) {
                 <p> Last Name is required</p>
-              }
-              @else if (lastName.errors.minlength) {
+              } @else if (lastName.errors.minlength || lastName.errors.noWhitespace) {
                 <p>Last Name must be at least 2 characters long</p>
-              }
-              @else if (firstName.errors.noWhitespace) {
-                <p>Please enter valid characters</p>
               }
             </div>
           }
@@ -56,8 +48,8 @@
                 <p>Email address required</p>
               }
               @if (email.errors.pattern) {
-                <p>Invalid email format<p>
-                  }
+                <p>Invalid email format</p>
+              }
             </div>
           }
         </div>
@@ -73,6 +65,14 @@
               }
             </select>
           </div>
+          @if (shippingCountry.invalid && (shippingCountry.dirty || !shippingCountry.untouched)) {
+            <div class="alert alert-danger">
+              @if (shippingCountry.errors.required) {
+                <p> Please select a country</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="shippingState" class="form-label fw-bold">State</label>
             <select id="shippingState" class="form-select input-space" formControlName="state">
@@ -81,20 +81,57 @@
               }
             </select>
           </div>
+          @if (shippingState.invalid && (shippingState.dirty || !shippingState.untouched)) {
+            <div class="alert alert-danger">
+              @if (shippingState.errors.required) {
+                <p> Please select a state</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="shippingStreetAddress" class="form-label fw-bold">Street Address</label>
             <input id="shippingStreetAddress" class="form-control au-input input-space" type="text"
                    formControlName="streetAddress">
           </div>
+          @if (shippingStreet.invalid && (shippingStreet.dirty || !shippingStreet.untouched)) {
+            <div class="alert alert-danger">
+              @if (shippingStreet.errors.required) {
+                <p> Please enter a street address</p>
+              } @else if (shippingStreet.errors.minlength || shippingStreet.errors.noWhitespace) {
+                <p> Please enter at least 2 characters</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="shippingCity" class="form-label fw-bold">City</label>
             <input id="shippingCity" class="form-control au-input input-space" type="text" formControlName="city">
           </div>
+          @if (shippingCity.invalid && (shippingCity.dirty || !shippingCity.untouched)) {
+            <div class="alert alert-danger">
+              @if (shippingCity.errors.required) {
+                <p> Please enter a city</p>
+              } @else if (shippingCity.errors.minlength || shippingCity.errors.noWhitespace) {
+                <p> Please enter at least 2 characters</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="shippingZipCode" class="form-label fw-bold">Zip Code</label>
             <input id="shippingZipCode" class="form-control au-input input-space" type="text"
                    formControlName="zipCode">
           </div>
+          @if (shippingZip.invalid && (shippingZip.dirty || !shippingZip.untouched)) {
+            <div class="alert alert-danger">
+              @if (shippingZip.errors.required) {
+                <p> Please enter a valid zipcode</p>
+              } @else if (shippingZip.errors.minlength || shippingZip.errors.noWhitespace) {
+                <p> Please enter at least 2 characters</p>
+              }
+            </div>
+          }
         </div>
 
         <div class="py-3">
@@ -114,6 +151,14 @@
               }
             </select>
           </div>
+          @if (billingCountry.invalid && (billingCountry.dirty || !billingCountry.untouched)) {
+            <div class="alert alert-danger">
+              @if (billingCountry.errors.required) {
+                <p> Please select a country</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="billingState" class="form-label fw-bold">State</label>
             <select id="billingState" class="form-select au-input input-space" formControlName="state">
@@ -122,20 +167,57 @@
               }
             </select>
           </div>
+          @if (billingState.invalid && (billingState.dirty || !billingState.untouched)) {
+            <div class="alert alert-danger">
+              @if (billingState.errors.required) {
+                <p> Please select a state</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="billingStreetAddress" class="form-label fw-bold">Street Address</label>
             <input id="billingStreetAddress" class="form-control au-input input-space" type="text"
                    formControlName="streetAddress">
           </div>
+          @if (billingStreet.invalid && (billingStreet.dirty || !billingStreet.untouched)) {
+            <div class="alert alert-danger">
+              @if (billingStreet.errors.required) {
+                <p> Please enter a street address</p>
+              } @else if (billingStreet.errors.minlength || billingStreet.errors.noWhitespace) {
+                <p> Please enter at least 2 characters</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="billingCity" class="form-label fw-bold">City</label>
             <input id="billingCity" class="form-control au-input input-space" type="text" formControlName="city">
           </div>
+          @if (billingCity.invalid && (billingCity.dirty || !billingCity.untouched)) {
+            <div class="alert alert-danger">
+              @if (billingCity.errors.required) {
+                <p> Please enter a city</p>
+              } @else if (billingCity.errors.minlength || billingCity.errors.noWhitespace) {
+                <p> Please enter at least 2 characters</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="billingZipCode" class="form-label fw-bold">Zip Code</label>
             <input id="billingZipCode" class="form-control au-input input-space" type="text"
                    formControlName="zipCode">
           </div>
+          @if (billingZip.invalid && (billingZip.dirty || !billingZip.untouched)) {
+            <div class="alert alert-danger">
+              @if (billingZip.errors.required) {
+                <p> Please enter a valid zipcode</p>
+              } @else if (billingZip.errors.minlength || billingZip.errors.noWhitespace) {
+                <p> Please enter at least 2 characters</p>
+              }
+            </div>
+          }
         </div>
 
         <div class="form-area" formGroupName="creditCard">

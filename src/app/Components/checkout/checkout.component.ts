@@ -43,19 +43,19 @@ export class CheckoutComponent {
       }),
 
       shippingAddress: this.formBuilder.group({
-        country: new FormControl('',[]),
-        streetAddress: new FormControl('',[]),
-        city: new FormControl('',[]),
-        state: new FormControl('',[]),
-        zipCode: new FormControl('',[])
+        country: new FormControl('',[Validators.required]),
+        streetAddress: new FormControl('',[Validators.required, Validators.minLength(2), noWhitespace()]),
+        city: new FormControl('',[Validators.required, Validators.minLength(2), noWhitespace()]),
+        state: new FormControl('',[Validators.required]),
+        zipCode: new FormControl('',[Validators.required, Validators.minLength(2), noWhitespace()])
       }),
 
       billingAddress: this.formBuilder.group({
-        country: new FormControl('',[]),
-        streetAddress: new FormControl('',[]),
-        city: new FormControl('',[]),
-        state: new FormControl('',[]),
-        zipCode: new FormControl('',[])
+        country: new FormControl('',[Validators.required]),
+        streetAddress: new FormControl('',[Validators.required, Validators.minLength(2), noWhitespace()]),
+        city: new FormControl('',[Validators.required, Validators.minLength(2), noWhitespace()]),
+        state: new FormControl('',[Validators.required]),
+        zipCode: new FormControl('',[Validators.required, Validators.minLength(2), noWhitespace()])
       }),
 
       creditCard: this.formBuilder.group({
@@ -66,12 +66,14 @@ export class CheckoutComponent {
         expMonth: new FormControl('',[]),
         expYear: new FormControl('',[]),
       })
-    })
+    });
   }
 
   submitForm() {
     if(this.checkoutForm.invalid) this.checkoutForm.markAllAsTouched();
     else console.log("FORM SUBMITTED: ",this.checkoutForm.value);
+    console.log(this.shippingStreet.errors);
+    console.log(this.checkoutForm);
   }
 
   setBillingSameAsShipping() {
@@ -107,5 +109,18 @@ export class CheckoutComponent {
   get firstName(){ return this.checkoutForm.get("customer.firstName");}
   get lastName(){ return this.checkoutForm.get("customer.lastName");}
   get email() { return this.checkoutForm.get("customer.email");}
+
+  get shippingStreet() { return this.checkoutForm.get("shippingAddress.streetAddress");}
+  get shippingCity() { return this.checkoutForm.get("shippingAddress.city");}
+  get shippingState() { return this.checkoutForm.get("shippingAddress.state");}
+  get shippingCountry() { return this.checkoutForm.get("shippingAddress.country");}
+  get shippingZip() { return this.checkoutForm.get("shippingAddress.zipCode");}
+
+  get billingStreet() { return this.checkoutForm.get("billingAddress.streetAddress");}
+  get billingCity() { return this.checkoutForm.get("billingAddress.city");}
+  get billingState() { return this.checkoutForm.get("billingAddress.state");}
+  get billingCountry() { return this.checkoutForm.get("billingAddress.country");}
+  get billingZip() { return this.checkoutForm.get("billingAddress.zipCode");}
+
 
 }
