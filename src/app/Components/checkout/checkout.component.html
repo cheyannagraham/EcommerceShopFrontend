@@ -226,20 +226,58 @@
             <label for="cardType" class="form-label fw-bold">Card Type</label>
             <input id="cardType" class="form-control au-input input-space" type="text" formControlName="cardType">
           </div>
+          @if (cardType.invalid && (cardType.dirty || !cardType.untouched)) {
+            <div class="alert alert-danger">
+              @if (cardType.errors.required) {
+                <p> Please select a card</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="cardholderName" class="form-label fw-bold">Name on Card</label>
             <input id="cardholderName" class="form-control au-input input-space" type="text"
                    formControlName="cardholderName">
           </div>
+          @if (cardholderName.invalid && (cardholderName.dirty || !cardholderName.untouched)) {
+            <div class="alert alert-danger">
+              @if (cardholderName.errors.required) {
+                <p> Cardholder name is required</p>
+              } @else if (cardholderName.errors.minlength || cardholderName.errors.noWhitespace) {
+                <p> Please enter at least 2 characters</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="cardNumber" class="form-label fw-bold">Card Number</label>
             <input id="cardNumber" class="form-control au-input input-space" type="number"
                    formControlName="cardNumber">
           </div>
+          @if (cardNumber.invalid && (cardNumber.dirty || !cardNumber.untouched)) {
+            <div class="alert alert-danger">
+              @if (cardNumber.errors.required) {
+                <p> Credit card number is required</p>
+              } @else if (cardNumber.errors.pattern) {
+                <p> Credit card number must be 16 digits</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="secCode" class="form-label fw-bold">Security Code</label>
             <input id="secCode" class="form-control au-input input-space" type="text" formControlName="secCode">
           </div>
+          @if (secCode.invalid && (secCode.dirty || !secCode.untouched)) {
+            <div class="alert alert-danger">
+              @if (secCode.errors.required) {
+                <p> Please enter the security code</p>
+              } @else if (secCode.errors.pattern) {
+                <p> Security code must be 3 digits</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="expMonth" class="form-label fw-bold">Expiration Month</label>
             <select id="expMonth" class="form-select input-space" formControlName="expMonth">
@@ -248,6 +286,14 @@
               }
             </select>
           </div>
+          @if (expMonth.invalid && (expMonth.dirty || !expMonth.untouched)) {
+            <div class="alert alert-danger">
+              @if (expMonth.errors.required) {
+                <p> Please select a month</p>
+              }
+            </div>
+          }
+
           <div>
             <label for="expYear" class="form-label fw-bold">Expiration Year</label>
             <select id="expYear" class="form-select input-space" formControlName="expYear"
@@ -257,6 +303,14 @@
               }
             </select>
           </div>
+          @if (expYear.invalid && (expYear.dirty || !expYear.untouched)) {
+            <div class="alert alert-danger">
+              @if (expYear.errors.required) {
+                <p> Please select a year</p>
+              }
+            </div>
+          }
+
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>
       </form>

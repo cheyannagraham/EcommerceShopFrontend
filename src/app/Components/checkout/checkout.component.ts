@@ -59,12 +59,12 @@ export class CheckoutComponent {
       }),
 
       creditCard: this.formBuilder.group({
-        cardType: new FormControl('',[]),
-        cardholderName: new FormControl('',[]),
-        cardNumber: new FormControl('',[]),
-        secCode: new FormControl('',[]),
-        expMonth: new FormControl('',[]),
-        expYear: new FormControl('',[]),
+        cardType: new FormControl('',[Validators.required]),
+        cardholderName: new FormControl('',[Validators.required, Validators.minLength(2), noWhitespace()]),
+        cardNumber: new FormControl('',[Validators.required, Validators.pattern('[0-9]{16}')]),
+        secCode: new FormControl('',[Validators.required, Validators.pattern('[0-9]{3}')]),
+        expMonth: new FormControl('',[Validators.required]),
+        expYear: new FormControl('',[Validators.required]),
       })
     });
   }
@@ -121,6 +121,13 @@ export class CheckoutComponent {
   get billingState() { return this.checkoutForm.get("billingAddress.state");}
   get billingCountry() { return this.checkoutForm.get("billingAddress.country");}
   get billingZip() { return this.checkoutForm.get("billingAddress.zipCode");}
+
+  get cardType() { return this.checkoutForm.get("creditCard.cardType");}
+  get cardNumber() { return this.checkoutForm.get("creditCard.cardNumber");}
+  get cardholderName() { return this.checkoutForm.get("creditCard.cardholderName");}
+  get secCode() { return this.checkoutForm.get("creditCard.secCode");}
+  get expMonth() { return this.checkoutForm.get("creditCard.expMonth");}
+  get expYear() { return this.checkoutForm.get("creditCard.expYear");}
 
 
 }
