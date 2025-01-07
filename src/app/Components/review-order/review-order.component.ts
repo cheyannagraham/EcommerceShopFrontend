@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Pipe, PipeTransform} from '@angular/core';
 import {CartService} from '../../Services/cart.service';
 import {UserService} from '../../Services/user.service';
 import {SubscriptionManagementService} from '../../Services/subscription-management.service';
@@ -7,13 +7,29 @@ import {CartItemModel} from '../../Models/cartItem.model';
 import {CurrencyPipe, JsonPipe, KeyValuePipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
 
+@Pipe({name: 'keyFormatPipe'})
+export class KeyFormatPipe implements PipeTransform {
+  transform(value: any, ...args: any): any {
+    let words = [];
+    let word = '';
+    for (let i = 0; i < value.length; i++) {
+      if (value.charCodeAt(i) <= 90 && value.charCodeAt(i) >= 65) {
+        words.push(word[0].toUpperCase() + word.substring(1));
+        word = value[i];
+      } else word += value[i];
+    }
+    words.push(word[0].toUpperCase() + word.substring(1));
+    return words.join(" ");
+  }
+}
+
 @Component({
   selector: 'app-review-order',
   imports: [
-    JsonPipe,
     CurrencyPipe,
     KeyValuePipe,
-    RouterLink
+    RouterLink,
+    KeyFormatPipe
   ],
   templateUrl: './review-order.component.html',
   styleUrl: './review-order.component.css'
@@ -48,4 +64,18 @@ export class ReviewOrderComponent {
   }
 
 }
-let data = { "customer": { "firstName": "last", "lastName": "time", "email": "i@am.com" }, "shippingAddress": { "country": "5", "streetAddress": "typing", "city": "all", "state": "145", "zipCode": "of" }, "billingAddress": { "country": "5", "streetAddress": "typing", "city": "all", "state": "145", "zipCode": "of" }, "creditCard": { "cardType": "this", "cardholderName": "stuff", "cardNumber": 1234567890898765, "secCode": "123", "expMonth": "10", "expYear": "2026" } }
+
+
+let data = {
+  "customer": {"firstName": "last", "lastName": "time", "email": "i@am.com"},
+  "shippingAddress": {"country": "5", "streetAddress": "typing", "city": "all", "state": "145", "zipCode": "of"},
+  "billingAddress": {"country": "5", "streetAddress": "typing", "city": "all", "state": "145", "zipCode": "of"},
+  "creditCard": {
+    "cardType": "this",
+    "cardholderName": "stuff",
+    "cardNumber": 1234567890898765,
+    "secCode": "123",
+    "expMonth": "10",
+    "expYear": "2026"
+  }
+}
