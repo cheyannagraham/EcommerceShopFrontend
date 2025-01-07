@@ -3,8 +3,55 @@
   <div class="section-content section-content-p30">
     <div class="row">
 
-      <p>{{ this.cartItems | json }}</p>
-      <p>{{ this.userData  | json }}</p>
+      @if (cartItems.size > 0) {
+
+        <table class="table table-striped table-bordered table-group-divider">
+          <thead class="table-primary">
+          <tr class="row">
+            <th class="col-3">Product</th>
+            <th class="col-9">Details</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (item of cartItems | keyvalue; track item.key) {
+              <tr class="row">
+                <td class="col-3">
+                  <img src="{{item.value.imageUrl}}" class="img-responsive" width="75%">
+                </td>
+                <td class="col-6">
+                  <p>Item: {{ item.value.name }}</p>
+                  <p>Price: {{ item.value.price }}</p>
+                </td>
+                <td class="col-3">
+                  <p>Quantity: {{ item.value.quantity }}</p>
+                  <p>SubTotal: {{ item.value.quantity * item.value.price | currency: "USD" }}</p>
+                </td>
+              </tr>
+            }
+          </tbody>
+          <tfoot>
+          <tr class="row">
+            <td class="col-9"></td>
+            <td class="col-3">
+              <p>Total Items: {{ cartItems.size }}</p>
+              <p>Shipping: FREE</p>
+              <p>Total Items: {{ cartTotal }}</p>
+              <a class="btn btn-primary" routerLink="/checkout">Checkout</a>
+            </td>
+          </tr>
+          </tfoot>
+        </table>
+      }
+      @for (data of userData | keyvalue; track data.key) {
+        <div class="row">
+          <p class="fw-bold text-center">{{ data.key }}</p>
+          @for (info of data.value | keyvalue; track info.key) {
+            <p><span class="fw-bold">{{ info.key }}: </span>{{ info.value }}</p>
+
+          }
+        </div>
+      }
+
     </div>
   </div>
 </div>
