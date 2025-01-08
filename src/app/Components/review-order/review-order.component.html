@@ -28,11 +28,11 @@
               </td>
             </tr>
           }
-          @for (data of userData | keyvalue; track data.key) {
+          @for (group of reviewGroups; track group) {
             <tr class="row">
-              <th class="fw-bold text-center">{{ data.key | keyFormatPipe}}</th>
+              <th class="fw-bold text-center">{{ group | keyFormatPipe}}</th>
             </tr>
-            @for (info of data.value | keyvalue; track info.key) {
+            @for (info of userData[group] | keyvalue; track info.key) {
               <tr class="row">
                 <td class="col-6 fw-bold">{{ info.key  | keyFormatPipe}}:</td>
                 <td class="col-6">{{ info.value }}</td>
@@ -47,7 +47,7 @@
             <p>Total Items: {{ cartItems.size }}</p>
             <p>Shipping: FREE</p>
             <p>Total Items: {{ cartTotal }}</p>
-            <a class="btn btn-primary" routerLink="/checkout">Checkout</a>
+            <a class="btn btn-primary" routerLink="/checkout">Purchase</a>
           </td>
         </tr>
         </tfoot>

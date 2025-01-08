@@ -38,7 +38,10 @@ export class ReviewOrderComponent {
   subscriptions: Subscription[] = [];
   cartItems: Map<number, CartItemModel>;
   cartTotal: number = 0;
-  userData = data;
+  reviewGroups = ["customer", "shippingAddress", "billingAddress", "creditCard"]; // listed for explicit ordering
+  userData: { [key: string]: {} } = data;
+
+  // userData :{}={};
 
   constructor(public cartService: CartService, public userService: UserService, public subService: SubscriptionManagementService) {
     this.cartItems = this.cartService.cart;
