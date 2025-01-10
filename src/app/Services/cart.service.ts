@@ -8,7 +8,7 @@ import {ProductModel} from '../Models/product.model';
 })
 export class CartService {
   public cart = new Map<number, CartItemModel>();
-  public totalItems = new Subject<number>();
+  public totalItems = new BehaviorSubject<number>(0);
   public totalCost = new BehaviorSubject<number>(0);
 
   constructor() {
