@@ -33,7 +33,7 @@
           <td class="col-3">
             <p>Total Items: {{ cartQuantity }}</p>
             <p>Shipping: FREE</p>
-            <p>Total Items: {{ cartTotalCost }}</p>
+            <p>Total Cost: {{ cartTotalCost | currency }}</p>
             <a class="btn btn-primary" routerLink="/checkout">Checkout</a>
           </td>
         </tr>

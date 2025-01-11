@@ -46,7 +46,7 @@
           <td class="col-3">
             <p>Total Items: {{ cartQuantity }}</p>
             <p>Shipping: FREE</p>
-            <p>Total Items: {{ cartTotal }}</p>
+            <p>Total Cost: {{ cartTotal | currency}}</p>
             <button class="btn btn-primary" (click)="submitPurchase()">Purchase</button>
           </td>
         </tr>
