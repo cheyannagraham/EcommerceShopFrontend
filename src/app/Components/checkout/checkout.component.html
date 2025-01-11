@@ -61,7 +61,7 @@
             <select id="shippingCountry" class="form-select input-space" formControlName="country"
                     (change)="getCountryStates('shippingAddress')">
               @for (country of countries; track country.id) {
-                <option value="{{country.id}}">{{ country.name }}</option>
+                <option [ngValue]="country" value="{{country}}">{{ country.name }}</option>
               }
             </select>
           </div>
@@ -77,7 +77,7 @@
             <label for="shippingState" class="form-label fw-bold">State</label>
             <select id="shippingState" class="form-select input-space" formControlName="state">
               @for (state of states["shippingAddress"]; track state.id) {
-                <option value="{{state.id}}">{{ state.name }}</option>
+                <option [ngValue]="state">{{ state.name }}</option>
               }
             </select>
           </div>
@@ -147,7 +147,7 @@
             <select id="billingCountry" class="form-select input-space" formControlName="country"
                     (change)="getCountryStates('billingAddress')">
               @for (country of countries; track country.id) {
-                <option value="{{country.id}}">{{ country.name }}</option>
+                <option [ngValue]="country">{{ country.name }}</option>
               }
             </select>
           </div>
@@ -163,7 +163,7 @@
             <label for="billingState" class="form-label fw-bold">State</label>
             <select id="billingState" class="form-select au-input input-space" formControlName="state">
               @for (state of states["billingAddress"]; track state.id) {
-                <option value="{{state.id}}">{{ state.name }}</option>
+                <option [ngValue]="state">{{ state.name }}</option>
               }
             </select>
           </div>
@@ -313,7 +313,6 @@
 
         </div>
         <button class="btn btn-primary" type="submit">Review Order</button>
-<!--        <a routerLink="/reviewOrder">Review Order</a>-->
       </form>
     </div>
   </div>

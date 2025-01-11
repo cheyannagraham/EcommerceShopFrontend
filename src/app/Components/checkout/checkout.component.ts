@@ -106,8 +106,8 @@ export class CheckoutComponent {
   }
 
   getCountryStates(formGroup: string) {
-    let country = this.checkoutForm.get(formGroup)!.value.country;
-    this.formService.getStates(country).subscribe(states => {
+    let countryId = this.checkoutForm.get(formGroup)!.value.country.id;
+    this.formService.getStates(countryId).subscribe(states => {
       // @ts-ignore
       this.states[formGroup] = states;
     })

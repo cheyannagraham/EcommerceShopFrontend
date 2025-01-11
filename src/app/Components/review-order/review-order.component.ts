@@ -88,20 +88,4 @@ export class ReviewOrderComponent {
 
     this.checkoutService.completePurchase(purchase);
   }
-
-}
-
-
-let data = {
-  "customer": {"firstName": "last", "lastName": "time", "email": "i@am.com"},
-  "shippingAddress": {"country": "5", "streetAddress": "typing", "city": "all", "state": "145", "zipCode": "of"},
-  "billingAddress": {"country": "5", "streetAddress": "typing", "city": "all", "state": "145", "zipCode": "of"},
-  "creditCard": {
-    "cardType": "this",
-    "cardholderName": "stuff",
-    "cardNumber": 1234567890898765,
-    "secCode": "123",
-    "expMonth": "10",
-    "expYear": "2026"
-  }
 }

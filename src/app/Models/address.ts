@@ -9,9 +9,9 @@ export class Address {
   constructor({streetAddress, city, state, zipCode, country}:any){
     this.street = streetAddress;
     this.city = city;
-    this.state = state;
+    this.state = state.name;
     this.zipCode = zipCode;
-    this.country = country;
+    this.country = country.name;
 
   }
 }
