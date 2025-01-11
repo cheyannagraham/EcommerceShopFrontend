@@ -6,6 +6,8 @@ import {StateModel} from '../../Models/state.model';
 import {noWhitespace} from '../../Validators/FormValidator';
 import {Router, RouterLink} from '@angular/router';
 import {UserService} from '../../Services/user.service';
+import {Subscription} from 'rxjs';
+import {SubscriptionManagementService} from '../../Services/subscription-management.service';
 
 // @ts-ignore
 @Component({
@@ -22,12 +24,14 @@ export class CheckoutComponent {
   countries: CountryModel[] = [];
   // @ts-ignore
   states: { "shippingAddress": StateModel[], "billingAddress": StateModel[] } = {};
+  subscriptions: Subscription[] = [];
 
 
   constructor(public formBuilder: FormBuilder,
               public formService: FormService,
               public userService: UserService,
-              public router: Router) {
+              public router: Router,
+              public subService:SubscriptionManagementService,) {
     this.billingSameAsShipping = new FormControl("");
     this.ccMonths = this.formService.getCreditCardMonths();
     this.ccYears = this.formService.getCreditCardYears();
@@ -35,6 +39,10 @@ export class CheckoutComponent {
 
   ngOnInit() {
     this.setFormDefaults();
+  }
+
+  ngOnDestroy() {
+    this.subService.unSubscribe(this.subscriptions);
   }
 
   createForm() {
@@ -101,20 +109,20 @@ export class CheckoutComponent {
 
   getCountries() {
     return new Promise((resolve) => {
-      this.formService.getCountries().subscribe(countries => {
+      this.subscriptions.push(this.formService.getCountries().subscribe(countries => {
         this.countries = countries;
         resolve("");
-      });
+      }));
     });
   }
 
   getCountryStates(formGroup: string) {
     let countryId = this.checkoutForm.get(formGroup)!.value.country.id;
-    this.formService.getStates(countryId).subscribe(states => {
+    this.subscriptions.push(this.formService.getStates(countryId).subscribe(states => {
       // @ts-ignore
       this.states[formGroup] = states;
       this.checkoutForm.get(formGroup).get("state").setValue(states[0]);
-    })
+    }));
   }
 
   setFormDefaults() {
