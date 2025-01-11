@@ -85,7 +85,8 @@ export class ReviewOrderComponent {
     const billingAddress = new Address(this.userData.billingAddress);
 
     const purchase = new Purchase(customer, order, shippingAddress, billingAddress, orderItems);
-    console.log(purchase);
+
+    this.checkoutService.completePurchase(purchase);
   }
 
 }
