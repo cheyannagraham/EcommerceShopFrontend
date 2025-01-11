@@ -5,9 +5,10 @@ import {OrderItem} from './order-item';
 
 export class Purchase {
 
-  constructor(public customer: Customer,
-              public shippingAddress: Address,
-              public billingAddress: Address,
-              public order: Order,
-              public orderItems: OrderItem[]){}
+  constructor(public customer:Customer,
+              public order:Order,
+              public shippingAddress:Address,
+              public billingAddress:Address,
+              public orderItems:OrderItem[]) {
+  }
 }

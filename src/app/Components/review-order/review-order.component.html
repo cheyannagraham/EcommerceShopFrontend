@@ -44,10 +44,10 @@
         <tr class="row">
           <td class="col-9"></td>
           <td class="col-3">
-            <p>Total Items: {{ cartItems.size }}</p>
+            <p>Total Items: {{ cartQuantity }}</p>
             <p>Shipping: FREE</p>
             <p>Total Items: {{ cartTotal }}</p>
-            <a class="btn btn-primary" routerLink="/checkout">Purchase</a>
+            <button class="btn btn-primary" (click)="submitPurchase()">Purchase</button>
           </td>
         </tr>
         </tfoot>

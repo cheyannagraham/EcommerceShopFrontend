@@ -5,7 +5,12 @@ import {SubscriptionManagementService} from '../../Services/subscription-managem
 import {Subscription} from 'rxjs';
 import {CartItemModel} from '../../Models/cartItem.model';
 import {CurrencyPipe, JsonPipe, KeyValuePipe} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import {CheckoutService} from '../../Services/checkout.service';
+import {Purchase} from '../../Models/purchase';
+import {OrderItem} from '../../Models/order-item';
+import {Order} from '../../Models/order';
+import {Customer} from '../../Models/customer';
+import {Address} from '../../Models/address';
 
 @Pipe({name: 'keyFormatPipe'})
 export class KeyFormatPipe implements PipeTransform {
@@ -28,7 +33,6 @@ export class KeyFormatPipe implements PipeTransform {
   imports: [
     CurrencyPipe,
     KeyValuePipe,
-    RouterLink,
     KeyFormatPipe
   ],
   templateUrl: './review-order.component.html',
@@ -38,12 +42,15 @@ export class ReviewOrderComponent {
   subscriptions: Subscription[] = [];
   cartItems: Map<number, CartItemModel>;
   cartTotal: number = 0;
+  cartQuantity: number = 0;
   reviewGroups = ["customer", "shippingAddress", "billingAddress", "creditCard"]; // listed for explicit ordering
-  userData: { [key: string]: {} } = data;
+  userData : {[key:string]:any} = {};
 
-  // userData :{}={};
 
-  constructor(public cartService: CartService, public userService: UserService, public subService: SubscriptionManagementService) {
+  constructor(public cartService: CartService,
+              public userService: UserService,
+              public subService: SubscriptionManagementService,
+              public checkoutService: CheckoutService) {
     this.cartItems = this.cartService.cart;
 
   }
@@ -61,9 +68,24 @@ export class ReviewOrderComponent {
       this.cartService.totalCost.subscribe(cost => this.cartTotal = cost)
     )
 
-    // this.subscriptions.push(
-    //   this.userService.userFormData.subscribe(user => this.userData = user)
-    // )
+    this.subscriptions.push(
+      this.cartService.totalItems.subscribe(quantity => this.cartQuantity = quantity)
+    )
+
+    this.subscriptions.push(
+      this.userService.userFormData.subscribe(user => this.userData = user)
+    )
+  }
+
+  submitPurchase(){
+    const order = new Order(this.cartQuantity, this.cartTotal);
+    const customer = new Customer(this.userData.customer);
+    const orderItems = [...this.cartItems.values()].map(item => new OrderItem(item));
+    const shippingAddress = new Address(this.userData.shippingAddress);
+    const billingAddress = new Address(this.userData.billingAddress);
+
+    const purchase = new Purchase(customer, order, shippingAddress, billingAddress, orderItems);
+    console.log(purchase);
   }
 
 }
