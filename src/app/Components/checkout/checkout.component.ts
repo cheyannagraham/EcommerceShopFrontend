@@ -34,8 +34,7 @@ export class CheckoutComponent {
   }
 
   ngOnInit() {
-    this.createForm();
-    this.getCountries();
+    this.setFormDefaults();
   }
 
   createForm() {
@@ -97,12 +96,16 @@ export class CheckoutComponent {
       startMonth = new Date().getMonth() + 1;
     }
     this.ccMonths = this.formService.getCreditCardMonths(startMonth);
+    console.log(this.ccMonths)
   }
 
   getCountries() {
-    this.formService.getCountries().subscribe(countries => {
-      this.countries = countries;
-    })
+    return new Promise((resolve) => {
+      this.formService.getCountries().subscribe(countries => {
+        this.countries = countries;
+        resolve("");
+      });
+    });
   }
 
   getCountryStates(formGroup: string) {
@@ -110,7 +113,21 @@ export class CheckoutComponent {
     this.formService.getStates(countryId).subscribe(states => {
       // @ts-ignore
       this.states[formGroup] = states;
+      this.checkoutForm.get(formGroup).get("state").setValue(states[0]);
     })
+  }
+
+  setFormDefaults() {
+    this.createForm();
+    this.getCountries().then(() => {
+      this.checkoutForm.get("shippingAddress").get("country").setValue(this.countries[0]);
+      this.checkoutForm.get("billingAddress").get("country").setValue(this.countries[0]);
+      this.getCountryStates("shippingAddress");
+      this.getCountryStates("billingAddress");
+
+      this.checkoutForm.get("creditCard").get("expYear").setValue(this.ccYears[0]);
+      this.checkoutForm.get("creditCard").get("expMonth").setValue(this.ccMonths[0]);
+    });
   }
 
   get firstName() {

@@ -282,7 +282,7 @@
             <label for="expMonth" class="form-label fw-bold">Expiration Month</label>
             <select id="expMonth" class="form-select input-space" formControlName="expMonth">
               @for (month of ccMonths; track month) {
-                <option value={{month}}>{{ month }}</option>
+                <option [ngValue]="month">{{ month }}</option>
               }
             </select>
           </div>
@@ -299,7 +299,7 @@
             <select id="expYear" class="form-select input-space" formControlName="expYear"
                     (change)="handleMonthsAndYears()">
               @for (year of ccYears; track year) {
-                <option value="{{year}}">{{ year }}</option>
+                <option [ngValue]="year">{{ year }}</option>
               }
             </select>
           </div>
