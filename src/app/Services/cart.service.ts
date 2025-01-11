@@ -39,5 +39,8 @@ export class CartService {
     return cost;
   }
 
-  updateCart() {}
+  resetCart() {
+    this.cart.clear();
+    this.calculateCartTotals();
+  }
 }

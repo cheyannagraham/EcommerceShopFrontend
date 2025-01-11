@@ -12,9 +12,6 @@ export class FormService {
   constructor(private httpClient: HttpClient) {
   }
 
-  ngOnInit() {
-  }
-
   getCreditCardMonths(startMonth: number = 1) {
     let months = [];
     for(let i = startMonth; i <= 12; i++){

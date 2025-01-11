@@ -8,10 +8,12 @@ export class UserService {
 
   userFormData = new BehaviorSubject<{}>({});
 
-  constructor() { }
-
   updateUserFormData(data:{}) {
     this.userFormData.next(data);
+  }
+
+  resetUserFormData() {
+    this.userFormData.next({});
   }
 
 }

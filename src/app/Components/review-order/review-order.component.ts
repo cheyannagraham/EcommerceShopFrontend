@@ -90,11 +90,9 @@ export class ReviewOrderComponent {
 
     this.checkoutService.completePurchase(purchase).subscribe({
       next: response => {
+        this.cartService.resetCart();
+        this.userService.resetUserFormData();
         this.router.navigateByUrl(`/orderConfirmation/${response.orderTrackingNumber}`)
-        console.log(response);
-        // this.cartService.reset();
-        //clear form
-        // this.
       },
       error: error => console.log(error)
     });
