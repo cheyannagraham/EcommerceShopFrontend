@@ -46,7 +46,7 @@ export class ReviewOrderComponent {
   cartQuantity: number = 0;
   reviewGroups = ["customer", "shippingAddress", "billingAddress", "creditCard"]; // listed for explicit ordering
   userData : {[key:string]:any} = {};
-
+  orderPurchaseError: string = "";
 
   constructor(public cartService: CartService,
               public userService: UserService,
@@ -94,7 +94,7 @@ export class ReviewOrderComponent {
         this.userService.resetUserFormData();
         this.router.navigateByUrl(`/orderConfirmation/${response.orderTrackingNumber}`)
       },
-      error: error => console.log(error)
+      error: error => this.orderPurchaseError = error
     });
   }
 }
