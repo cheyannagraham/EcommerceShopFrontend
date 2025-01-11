@@ -4,7 +4,7 @@ import {UserService} from '../../Services/user.service';
 import {SubscriptionManagementService} from '../../Services/subscription-management.service';
 import {Subscription} from 'rxjs';
 import {CartItemModel} from '../../Models/cartItem.model';
-import {CurrencyPipe, JsonPipe, KeyValuePipe} from '@angular/common';
+import {CurrencyPipe, KeyValuePipe} from '@angular/common';
 import {CheckoutService} from '../../Services/checkout.service';
 import {Purchase} from '../../Models/purchase';
 import {OrderItem} from '../../Models/order-item';
@@ -34,7 +34,7 @@ export class KeyFormatPipe implements PipeTransform {
   imports: [
     CurrencyPipe,
     KeyValuePipe,
-    KeyFormatPipe
+    KeyFormatPipe,
   ],
   templateUrl: './review-order.component.html',
   styleUrl: './review-order.component.css'

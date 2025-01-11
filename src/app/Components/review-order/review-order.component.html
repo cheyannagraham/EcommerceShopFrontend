@@ -2,7 +2,7 @@
   <h2 class="text-center my-3 py-3 h2">Review Order</h2>
   <div class="section-content section-content-p30">
     <div class="row">
-      @if(orderPurchaseError){
+      @if (orderPurchaseError) {
         <div class="alert alert-warning fs-4">
           <p>There was an error submitting your order</p>
           <p>{{ orderPurchaseError }}</p>
@@ -34,12 +34,18 @@
           }
           @for (group of reviewGroups; track group) {
             <tr class="row">
-              <th class="fw-bold text-center">{{ group | keyFormatPipe}}</th>
+              <th class="fw-bold text-center">{{ group | keyFormatPipe }}</th>
             </tr>
             @for (info of userData[group] | keyvalue; track info.key) {
               <tr class="row">
-                <td class="col-6 fw-bold">{{ info.key  | keyFormatPipe}}:</td>
-                <td class="col-6">{{ info.value }}</td>
+                <td class="col-6 fw-bold">{{ info.key  | keyFormatPipe }}:</td>
+                @if (info.key == "country") {
+                  <td class="col-6">{{ userData[group].country.name }}</td>
+                } @else if (info.key == "state") {
+                  <td class="col-6">{{ userData[group].state.name }}</td>
+                } @else {
+                  <td class="col-6">{{ info.value }}</td>
+                }
               </tr>
             }
           }
@@ -50,7 +56,7 @@
           <td class="col-3">
             <p>Total Items: {{ cartQuantity }}</p>
             <p>Shipping: FREE</p>
-            <p>Total Cost: {{ cartTotal | currency}}</p>
+            <p>Total Cost: {{ cartTotal | currency }}</p>
             <button class="btn btn-primary" (click)="submitPurchase()">Purchase</button>
           </td>
         </tr>
