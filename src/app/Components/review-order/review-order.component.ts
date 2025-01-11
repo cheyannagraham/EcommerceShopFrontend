@@ -11,6 +11,7 @@ import {OrderItem} from '../../Models/order-item';
 import {Order} from '../../Models/order';
 import {Customer} from '../../Models/customer';
 import {Address} from '../../Models/address';
+import {Router} from '@angular/router';
 
 @Pipe({name: 'keyFormatPipe'})
 export class KeyFormatPipe implements PipeTransform {
@@ -50,7 +51,8 @@ export class ReviewOrderComponent {
   constructor(public cartService: CartService,
               public userService: UserService,
               public subService: SubscriptionManagementService,
-              public checkoutService: CheckoutService) {
+              public checkoutService: CheckoutService,
+              public router: Router) {
     this.cartItems = this.cartService.cart;
 
   }
@@ -86,6 +88,15 @@ export class ReviewOrderComponent {
 
     const purchase = new Purchase(customer, order, shippingAddress, billingAddress, orderItems);
 
-    this.checkoutService.completePurchase(purchase);
+    this.checkoutService.completePurchase(purchase).subscribe({
+      next: response => {
+        this.router.navigateByUrl(`/orderConfirmation/${response.orderTrackingNumber}`)
+        console.log(response);
+        // this.cartService.reset();
+        //clear form
+        // this.
+      },
+      error: error => console.log(error)
+    });
   }
 }

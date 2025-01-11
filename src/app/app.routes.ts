@@ -4,6 +4,7 @@ import {ProductDetailComponent} from './Components/product-detail/product-detail
 import {CartDetailsComponent} from './Components/cart-details/cart-details.component';
 import {CheckoutComponent} from './Components/checkout/checkout.component';
 import {ReviewOrderComponent} from './Components/review-order/review-order.component';
+import {OrderConfirmationComponent} from './Components/order-confirmation/order-confirmation.component';
 
 export const routes: Routes = [
   {
@@ -20,9 +21,14 @@ export const routes: Routes = [
     component: ProductDetailComponent,
   },
   {
+    path : 'orderConfirmation/:orderTrackingNumber',
+    component: OrderConfirmationComponent,
+  },
+  {
     path : 'cart-details',
     component: CartDetailsComponent,
-  },  {
+  },
+  {
     path : 'reviewOrder',
     component: ReviewOrderComponent,
   },
