@@ -9,7 +9,7 @@ import {SubscriptionManagementService} from './subscription-management.service';
   providedIn: 'root'
 })
 export class ProductService {
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = "https://bookshop-backend-3d608f85a00c.herokuapp.com/api";
   productsPage = new Subject<ProductListPage>();
   subscriptions: Subscription[] = [];
 
