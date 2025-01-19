@@ -4,16 +4,21 @@ import {ProductListPage, ProductListResponse, ProductModel} from '../Models/prod
 import {Subject, Subscription} from 'rxjs';
 import {Router} from '@angular/router';
 import {SubscriptionManagementService} from './subscription-management.service';
+import {ApiService} from './api-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private baseUrl = "https://bookshop-backend-3d608f85a00c.herokuapp.com/api";
+  private baseUrl;
   productsPage = new Subject<ProductListPage>();
   subscriptions: Subscription[] = [];
 
-  constructor(private httpClient: HttpClient, private router: Router, private subService:SubscriptionManagementService) {
+  constructor(private httpClient: HttpClient,
+              private router: Router,
+              private subService: SubscriptionManagementService,
+              private apiService: ApiService) {
+    this.baseUrl = this.apiService.baseURL;
   }
 
   private setProducts(products: ProductListPage) {
@@ -32,15 +37,15 @@ export class ProductService {
     )
   }
 
-  getProducts(page:any) {
+  getProducts(page: any) {
     this.productRequest(`${this.baseUrl}/products?page=${page.number}&size=${page.size}`);
   }
 
-  getProductsByCategory(categoryId:any, page:any) {
+  getProductsByCategory(categoryId: any, page: any) {
     this.productRequest(`${this.baseUrl}/products/search/findByCategoryId?categoryId=${categoryId}&page=${page.number}&size=${page.size}`);
   }
 
-  searchProducts(keyword: string, page:any) {
+  searchProducts(keyword: string, page: any) {
     this.productRequest(`${this.baseUrl}/products/search/findProductsByNameContainingIgnoreCase?keyword=${keyword}&page=${page.number}&size=${page.size}`)
   }
 
