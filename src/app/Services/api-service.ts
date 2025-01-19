@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import {environment} from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  readonly baseURL = "https://bookshop-backend-3d608f85a00c.herokuapp.com/api";
+  readonly baseURL = environment.baseUrl;
 }
