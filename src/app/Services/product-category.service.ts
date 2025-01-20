@@ -13,7 +13,7 @@ export class ProductCategoryService {
 
   constructor(private httpClient: HttpClient,
               private apiService: ApiService) {
-    this.baseUrl = this.apiService.baseURL;
+    this.baseUrl = this.apiService.baseUrl;
   }
 
   getProductCategories() {

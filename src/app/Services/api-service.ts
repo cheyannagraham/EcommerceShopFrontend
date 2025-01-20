@@ -1,9 +1,14 @@
-import { Injectable } from '@angular/core';
-import {environment} from '../../environments/environment.development';
+import {Injectable} from '@angular/core';
+import {environment as prod} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  readonly baseURL = environment.baseUrl;
+
+  baseUrl;
+
+  constructor() {
+    this.baseUrl = prod.baseUrl;
+  }
 }

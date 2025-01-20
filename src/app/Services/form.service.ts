@@ -13,7 +13,7 @@ export class FormService {
 
   constructor(private httpClient: HttpClient,
               private apiService: ApiService) {
-    this.baseUrl = this.apiService.baseURL;
+    this.baseUrl = this.apiService.baseUrl;
   }
 
   getCreditCardMonths(startMonth: number = 1) {

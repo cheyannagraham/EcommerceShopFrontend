@@ -12,6 +12,6 @@ export class CheckoutService {
               private apiService: ApiService) { }
 
   completePurchase(purchase: Purchase){
-    return this.http.post<{orderTrackingNumber:string}>(this.apiService.baseURL + "/checkout/purchase", purchase);
+    return this.http.post<{orderTrackingNumber:string}>(this.apiService.baseUrl + "/checkout/purchase", purchase);
   }
 }

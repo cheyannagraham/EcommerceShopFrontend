@@ -18,7 +18,7 @@ export class ProductService {
               private router: Router,
               private subService: SubscriptionManagementService,
               private apiService: ApiService) {
-    this.baseUrl = this.apiService.baseURL;
+    this.baseUrl = this.apiService.baseUrl;
   }
 
   private setProducts(products: ProductListPage) {
