@@ -23,7 +23,7 @@ export class CartDetailsComponent {
   subscriptions: Subscription[] = [];
 
   constructor(private cartService: CartService, public subService: SubscriptionManagementService) {
-    this.cartItems = this.cartService.cart;
+    // this.cartItems = this.cartService.cart;
   }
 
   ngOnInit() {
@@ -35,6 +35,10 @@ export class CartDetailsComponent {
   }
 
   subscribeToCartItems(): void {
+    this.subscriptions.push(this.cartService.cartSubject.subscribe(cartItems => {
+      this.cartItems = cartItems;
+    }))
+
     this.subscriptions.push(this.cartService.totalItems.subscribe((totalItems) => {
       this.cartQuantity = totalItems;
     }));
@@ -47,14 +51,14 @@ export class CartDetailsComponent {
   }
 
   increaseItemQuantity(itemId:number) {
-    this.cartService.increaseItemQuantity(itemId)
+    this.cartService.increaseItemQuantity(itemId);
   }
 
   decreaseItemQuantity(itemId:number) {
-    this.cartService.decreaseItemQuantity(itemId)
+    this.cartService.decreaseItemQuantity(itemId);
   }
 
   deleteItem(itemId:number) {
-    this.cartService.deleteItem(itemId)
+    this.cartService.deleteItem(itemId);
   }
 }
