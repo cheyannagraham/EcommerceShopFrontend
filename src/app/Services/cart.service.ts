@@ -10,8 +10,15 @@ export class CartService {
   public cart = new Map<number, CartItemModel>();
   public totalItems = new BehaviorSubject<number>(0);
   public totalCost = new BehaviorSubject<number>(0);
+  public cartStorage: Storage = localStorage;
 
   constructor() {
+    let cart = JSON.parse(this.cartStorage.getItem('cart'));
+    console.log("Retrieved from storage", cart);
+    for (let item in cart) {
+      this.cart.set(Number(item), cart[item]);
+    }
+    if(this.cart.size > 0) this.calculateCartTotals();
   }
 
   addToCart(product: ProductModel) {
@@ -21,6 +28,8 @@ export class CartService {
       item = new CartItemModel(product);
       this.cart.set(product.id, item);
     }
+    // add cart to local storage
+    this.cartStorage.setItem('cart', JSON.stringify(Object.fromEntries(this.cart)));
     this.calculateCartTotals();
   }
 
@@ -41,6 +50,7 @@ export class CartService {
 
   resetCart() {
     this.cart.clear();
+    this.cartStorage.removeItem('cart');
     this.calculateCartTotals();
   }
 }
