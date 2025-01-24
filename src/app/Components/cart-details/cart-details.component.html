@@ -23,6 +23,11 @@
               <td class="col-3">
                 <p>Quantity: {{ item.value.quantity }}</p>
                 <p>SubTotal: {{ item.value.quantity * item.value.price | currency: "USD" }}</p>
+                <p>
+                  <button (click)="increaseItemQuantity(item.value.id)" class="btn btn-primary m-1">+</button>
+                  <button (click)="decreaseItemQuantity(item.value.id)" class="btn btn-primary m-1">-</button>
+                </p>
+                <button (click)="deleteItem(item.value.id)" class="btn btn-primary">Delete Item</button>
               </td>
             </tr>
           }

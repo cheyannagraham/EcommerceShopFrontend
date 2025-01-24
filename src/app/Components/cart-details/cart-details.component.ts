@@ -24,7 +24,6 @@ export class CartDetailsComponent {
 
   constructor(private cartService: CartService, public subService: SubscriptionManagementService) {
     this.cartItems = this.cartService.cart;
-    console.log(this.cartItems);
   }
 
   ngOnInit() {
@@ -47,5 +46,15 @@ export class CartDetailsComponent {
     this.cartService.calculateCartTotals();
   }
 
-  protected readonly of = of;
+  increaseItemQuantity(itemId:number) {
+    this.cartService.increaseItemQuantity(itemId)
+  }
+
+  decreaseItemQuantity(itemId:number) {
+    this.cartService.decreaseItemQuantity(itemId)
+  }
+
+  deleteItem(itemId:number) {
+    this.cartService.deleteItem(itemId)
+  }
 }

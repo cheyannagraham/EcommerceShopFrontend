@@ -33,6 +33,21 @@ export class CartService {
     this.calculateCartTotals();
   }
 
+  increaseItemQuantity(itemId:number) {
+    let item = this.cart.get(itemId);
+    if (item) item.quantity++;
+  }
+
+  deleteItem(itemId:number) {
+    this.cart.delete(itemId);
+  }
+
+  decreaseItemQuantity(itemId:number) {
+    let item = this.cart.get(itemId);
+    if (item) item.quantity--;
+    if(item.quantity === 0) this.cart.delete(itemId);
+  }
+
   // Wouldnt calculate cart like this. instead would +- for each item, not recalculate whole cart
   calculateCartTotals() {
     let quantity = 0;
